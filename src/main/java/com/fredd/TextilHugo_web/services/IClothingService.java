@@ -10,5 +10,6 @@ public interface IClothingService {
     List<Clothing> getAllClothings();
     Optional<Clothing> getClothingById(Long clothingId);
     Clothing addClothing(Clothing newClothing);
+    boolean existsById(Long id);
     void deleteClothingById(Long clothingId);
 }

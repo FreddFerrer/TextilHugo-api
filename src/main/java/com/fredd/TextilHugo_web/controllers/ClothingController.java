@@ -3,7 +3,6 @@ package com.fredd.TextilHugo_web.controllers;
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
 import com.fredd.TextilHugo_web.model.entities.Clothing;
-import com.fredd.TextilHugo_web.model.entities.ClothingSize;
 import com.fredd.TextilHugo_web.services.IClothingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -55,4 +54,16 @@ public class ClothingController {
         }
         return new ResponseEntity<>(newClothing, HttpStatus.CREATED);
     }
+
+    //@PutMapping("{idClothing}")
+    //public ResponseEntity<?> updateClothing(@RequestBody @Valid Clothing clothing, @PathVariable Long idClothing){
+
+    //    try {
+    //        Optional<Clothing> existingClothing = clothingService.getClothingById(idClothing);
+
+    //        if (existingClothing.isPresent()){
+
+    //        }
+    //    }
+    //}
 }

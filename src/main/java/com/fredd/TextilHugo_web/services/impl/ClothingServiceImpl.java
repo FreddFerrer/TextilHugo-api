@@ -31,6 +31,11 @@ public class ClothingServiceImpl implements IClothingService {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return clothingRepository.existsById(id);
+    }
+
+    @Override
     public void deleteClothingById(Long clothingId) {
         clothingRepository.deleteById(clothingId);
     }

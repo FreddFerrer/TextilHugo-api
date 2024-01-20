@@ -7,6 +7,9 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "clothes")
 @Getter
@@ -21,11 +24,11 @@ public class Clothing {
     private Long id;
 
     @NotEmpty(message = "El tipo no debe estar vacio ni ser menor a 10 caracteres")
-    @Size(min = 10, max = 100, message = "La longitud del campo debe estar entre 10 y 100 caracteres")
+    @Size(min = 1, max = 100, message = "La longitud del campo debe estar entre 10 y 100 caracteres")
     private String type;
 
     @NotEmpty(message = "La descripcion no debe estar vacia")
-    @Size(min = 10, max = 100, message = "La longitud del campo debe estar entre 10 y 100 caracteres")
+    @Size(min = 1, max = 100, message = "La longitud del campo debe estar entre 10 y 100 caracteres")
     private String description;
 
     @NotEmpty(message = "Campo 'marca' requerido")
@@ -46,8 +49,8 @@ public class Clothing {
     @NotEmpty(message = "Campo 'temporada' requerido")
     private String season;
 
-    @OneToOne
-    @JoinColumn(name = "size_id")
+    @ManyToOne
     @NotNull
-    private ClothingSize size;
+    @JoinColumn(name = "size_id")
+    private ClothingSize clothingSize;
 }
