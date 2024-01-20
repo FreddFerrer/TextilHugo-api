@@ -1,9 +1,13 @@
 package com.fredd.TextilHugo_web.controllers;
 
+import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
 import com.fredd.TextilHugo_web.model.entities.Clothing;
+import com.fredd.TextilHugo_web.model.entities.ClothingSize;
 import com.fredd.TextilHugo_web.services.IClothingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/clothes")
+@RequestMapping("/api/v1/clothes")
 @RequiredArgsConstructor
 public class ClothingController {
 
@@ -20,7 +24,7 @@ public class ClothingController {
 
 
     @GetMapping()
-    public ResponseEntity<?> getAllSizes() {
+    public ResponseEntity<?> getAllClothings() {
         List<Clothing> clothing = clothingService.getAllClothings();
         if (clothing == null || clothing.isEmpty()) {
             throw new ResourceNotFoundException("indumentarias");
@@ -39,5 +43,16 @@ public class ClothingController {
 
         return new ResponseEntity<>(clothing, HttpStatus.OK);
 
+    }
+
+    @PostMapping()
+    public ResponseEntity<?> addClothing(@RequestBody @Valid Clothing clothing) {
+        Clothing newClothing;
+        try {
+            newClothing = clothingService.addClothing(clothing);
+        } catch (DataAccessException exDt) {
+            throw new BadRequestException(exDt.getMessage());
+        }
+        return new ResponseEntity<>(newClothing, HttpStatus.CREATED);
     }
 }

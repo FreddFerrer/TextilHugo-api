@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
                     mapErrors.put(clave, valor);
                 }
         );
-        CustomErrorResponse apiResponse = new CustomErrorResponse(mapErrors.toString(), webRequest.getDescription(false));
+        CustomErrorResponse apiResponse = new CustomErrorResponse(mapErrors, webRequest.getDescription(false));
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
 
@@ -48,11 +48,19 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
 
+    //controla los errores de logica o de los catch en general 400
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<CustomErrorResponse> handlerBadRequestException(BadRequestException exception,
+                                                                  WebRequest webRequest) {
+        CustomErrorResponse apiResponse = new CustomErrorResponse(exception.getMessage(), webRequest.getDescription(false));
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
+
     //controla los errores de varios tipos y globalizrlo con un error 500
     @ExceptionHandler(Exception.class)
     public ResponseEntity<CustomErrorResponse> handlerException(Exception exception,
                                                         WebRequest webRequest) {
         CustomErrorResponse apiResponse = new CustomErrorResponse(exception.getMessage(), webRequest.getDescription(false));
-        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
 }

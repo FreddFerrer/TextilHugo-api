@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/sizes")
+@RequestMapping("/api/v1/sizes")
 @RequiredArgsConstructor
 public class SizeController {
 
