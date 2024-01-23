@@ -55,15 +55,51 @@ public class ClothingController {
         return new ResponseEntity<>(newClothing, HttpStatus.CREATED);
     }
 
-    //@PutMapping("{idClothing}")
-    //public ResponseEntity<?> updateClothing(@RequestBody @Valid Clothing clothing, @PathVariable Long idClothing){
+    @PutMapping("{idClothing}")
+    public ResponseEntity<?> updateClothing(@RequestBody @Valid Clothing clothing, @PathVariable Long idClothing){
 
-    //    try {
-    //        Optional<Clothing> existingClothing = clothingService.getClothingById(idClothing);
+        try {
+            Optional<Clothing> optionalClothing = clothingService.getClothingById(idClothing);
 
-    //        if (existingClothing.isPresent()){
+            if (optionalClothing.isPresent()){
+                Clothing existingClothing = optionalClothing.get();
+                existingClothing.setType(clothing.getType());
+                existingClothing.setDescription(clothing.getDescription());
+                existingClothing.setBrand(clothing.getBrand());
+                existingClothing.setGender(clothing.getGender());
+                existingClothing.setColor(clothing.getColor());
+                existingClothing.setMaterial(clothing.getMaterial());
+                existingClothing.setCategory(clothing.getCategory());
+                existingClothing.setSeason(clothing.getSeason());
+                existingClothing.setClothingSize(clothing.getClothingSize());
 
-    //        }
-    //    }
-    //}
+                clothingService.addClothing(existingClothing);
+
+                return ResponseEntity.ok(existingClothing);
+
+            } else {
+                throw new ResourceNotFoundException("indumentaria", "id", idClothing);
+            }
+        } catch (DataAccessException e){
+            throw new BadRequestException(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{idClothing}")
+    public ResponseEntity<?> delete(@PathVariable Long idClothing) {
+        try {
+            Optional<Clothing> clothingDelete = clothingService.getClothingById(idClothing);
+            if (clothingDelete.isPresent()){
+                Clothing clothingId = clothingDelete.get();
+                clothingService.deleteClothingById(clothingId.getId());
+
+                return new ResponseEntity<>(clothingDelete, HttpStatus.NO_CONTENT);
+            } else {
+                throw new ResourceNotFoundException("indumentaria", "id", idClothing);
+            }
+        } catch (DataAccessException exDt) {
+            throw  new BadRequestException(exDt.getMessage());
+        }
+    }
+
 }
