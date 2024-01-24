@@ -1,8 +1,8 @@
 package com.fredd.TextilHugo_web.controllers;
 
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
-import com.fredd.TextilHugo_web.model.entities.ClothingSize;
-import com.fredd.TextilHugo_web.services.ISizeService;
+import com.fredd.TextilHugo_web.model.entities.TalleIndumentaria;
+import com.fredd.TextilHugo_web.services.ITalleService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/sizes")
 @RequiredArgsConstructor
-public class SizeController {
+public class TalleController {
 
-    private final ISizeService sizeService;
+    private final ITalleService sizeService;
 
     @PostMapping
-    public ResponseEntity<?> addSize(@RequestBody @Valid ClothingSize clothingSize) {
+    public ResponseEntity<?> addSize(@RequestBody @Valid TalleIndumentaria clothingSize) {
 
-        ClothingSize newClothingSize;
+        TalleIndumentaria newClothingSize;
         try {
             newClothingSize = sizeService.addSize(clothingSize);
         } catch (DataAccessException exDt) {

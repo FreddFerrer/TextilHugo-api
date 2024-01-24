@@ -1,8 +1,8 @@
 package com.fredd.TextilHugo_web.services.impl;
 
-import com.fredd.TextilHugo_web.model.entities.Inventory;
-import com.fredd.TextilHugo_web.model.repositories.IInventoryRepository;
-import com.fredd.TextilHugo_web.services.IinventoryService;
+import com.fredd.TextilHugo_web.model.entities.Inventario;
+import com.fredd.TextilHugo_web.model.repositories.IinventarioRepository;
+import com.fredd.TextilHugo_web.services.IinventarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +11,22 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryServiceImpl implements IinventoryService {
+public class InventarioServiceImpl implements IinventarioService {
 
-    private final IInventoryRepository inventoryRepository;
+    private final IinventarioRepository inventoryRepository;
 
     @Override
-    public List<Inventory> getAllInventory() {
+    public List<Inventario> getAllInventory() {
         return inventoryRepository.findAll();
     }
 
     @Override
-    public Optional<Inventory> getInventoryById(Long inventoryId) {
+    public Optional<Inventario> getInventoryById(Long inventoryId) {
         return inventoryRepository.findById(inventoryId);
     }
 
     @Override
-    public Inventory addInventory(Inventory newInventory) {
+    public Inventario addInventory(Inventario newInventory) {
         return inventoryRepository.save(newInventory);
     }
 

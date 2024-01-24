@@ -8,12 +8,12 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "inventory")
+@Table(name = "inventario")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Inventory {
+public class Inventario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -31,9 +31,9 @@ public class Inventory {
     private Date loadDate;
 
     @ManyToOne
-    @JoinColumn(name = "clothing_id")
+    @JoinColumn(name = "indumentaria_id")
     @NotNull
-    private Clothing clothing;
+    private Indumentaria clothing;
 
     @PrePersist
     public void prePersist() {

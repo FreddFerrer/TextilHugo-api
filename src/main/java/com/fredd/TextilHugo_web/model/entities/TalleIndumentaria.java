@@ -9,16 +9,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
-@Table(name = "sizes")
+@Table(name = "talles")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClothingSize {
+public class TalleIndumentaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

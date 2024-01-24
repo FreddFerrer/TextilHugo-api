@@ -1,8 +1,8 @@
 package com.fredd.TextilHugo_web.services.impl;
 
-import com.fredd.TextilHugo_web.model.entities.ClothingSize;
-import com.fredd.TextilHugo_web.model.repositories.ISizeRepository;
-import com.fredd.TextilHugo_web.services.ISizeService;
+import com.fredd.TextilHugo_web.model.entities.TalleIndumentaria;
+import com.fredd.TextilHugo_web.model.repositories.ITalleRepository;
+import com.fredd.TextilHugo_web.services.ITalleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,21 +11,21 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class SizeServiceImpl implements ISizeService {
-    private final ISizeRepository sizeRepository;
+public class TalleServiceImpl implements ITalleService {
+    private final ITalleRepository sizeRepository;
 
     @Override
-    public ClothingSize addSize(ClothingSize clothingSize) {
+    public TalleIndumentaria addSize(TalleIndumentaria clothingSize) {
         return sizeRepository.save(clothingSize);
     }
 
     @Override
-    public List<ClothingSize> getAllSizes() {
+    public List<TalleIndumentaria> getAllSizes() {
         return sizeRepository.findAll();
     }
 
     @Override
-    public Optional<ClothingSize> getSizeById(Long sizeId) {
+    public Optional<TalleIndumentaria> getSizeById(Long sizeId) {
         return sizeRepository.findById(sizeId);
     }
 

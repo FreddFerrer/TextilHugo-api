@@ -9,15 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Entity
-@Table(name = "purchases")
+@Table(name = "compras")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Purchase {
+public class Compra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -35,11 +34,11 @@ public class Purchase {
     private Date purchaseDate;
 
     @ManyToOne
-    @JoinColumn(name = "inventory_id")
+    @JoinColumn(name = "inventario_id")
     @NotNull
-    private Inventory inventory;
+    private Inventario inventory;
 
-    public Purchase(Integer quantity, Double unitPrice, Inventory inventory) {
+    public Compra(Integer quantity, Double unitPrice, Inventario inventory) {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.inventory = inventory;

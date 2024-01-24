@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PurchaseRequest {
+public class CompraRequest {
     @NotNull
     private Long inventoryId;
 

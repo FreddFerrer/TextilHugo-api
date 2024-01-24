@@ -6,17 +6,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
-@Table(name = "clothes")
+@Table(name = "indumentarias")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Clothing {
+public class Indumentaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -50,6 +47,6 @@ public class Clothing {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "size_id")
-    private ClothingSize clothingSize;
+    @JoinColumn(name = "talle_id")
+    private TalleIndumentaria clothingSize;
 }

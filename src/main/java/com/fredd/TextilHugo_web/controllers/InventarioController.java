@@ -2,11 +2,11 @@ package com.fredd.TextilHugo_web.controllers;
 
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
-import com.fredd.TextilHugo_web.model.dtos.PurchaseRequest;
-import com.fredd.TextilHugo_web.model.entities.Inventory;
-import com.fredd.TextilHugo_web.model.entities.Purchase;
-import com.fredd.TextilHugo_web.services.IPurchaseService;
-import com.fredd.TextilHugo_web.services.IinventoryService;
+import com.fredd.TextilHugo_web.model.dtos.CompraRequest;
+import com.fredd.TextilHugo_web.model.entities.Inventario;
+import com.fredd.TextilHugo_web.model.entities.Compra;
+import com.fredd.TextilHugo_web.services.ICompraService;
+import com.fredd.TextilHugo_web.services.IinventarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -20,14 +20,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/inventory")
 @RequiredArgsConstructor
-public class InventoryController {
+public class InventarioController {
 
-    private final IinventoryService inventoryService;
-    private final IPurchaseService purchaseService;
+    private final IinventarioService inventoryService;
+    private final ICompraService purchaseService;
 
     @GetMapping()
     public ResponseEntity<?> getAllInventories() {
-        List<Inventory> inventories = inventoryService.getAllInventory();
+        List<Inventario> inventories = inventoryService.getAllInventory();
         if (inventories == null || inventories.isEmpty()) {
             throw new ResourceNotFoundException("inventario");
         }
@@ -37,7 +37,7 @@ public class InventoryController {
     @GetMapping("/{inventoryId}")
     public ResponseEntity<?> getInventoryById(@PathVariable Long inventoryId) {
 
-        Optional<Inventory> inventory = inventoryService.getInventoryById(inventoryId);
+        Optional<Inventario> inventory = inventoryService.getInventoryById(inventoryId);
 
         if (inventory.isEmpty()) {
             throw new ResourceNotFoundException("inventario", "id", inventoryId);
@@ -48,8 +48,8 @@ public class InventoryController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> addInventory(@RequestBody @Valid Inventory inventory) {
-        Inventory newInventory;
+    public ResponseEntity<?> addInventory(@RequestBody @Valid Inventario inventory) {
+        Inventario newInventory;
         try {
             newInventory = inventoryService.addInventory(inventory);
         } catch (DataAccessException exDt) {
@@ -59,13 +59,13 @@ public class InventoryController {
     }
 
     @PutMapping("/{inventoryId}")
-    public void updateInventory(@RequestBody @Valid Inventory inventory, @PathVariable Long inventoryId) {
+    public void updateInventory(@RequestBody @Valid Inventario inventory, @PathVariable Long inventoryId) {
 
         try {
-            Optional<Inventory> optionalInventory = inventoryService.getInventoryById(inventoryId);
+            Optional<Inventario> optionalInventory = inventoryService.getInventoryById(inventoryId);
 
             if (optionalInventory.isPresent()) {
-                Inventory existingInventory = optionalInventory.get();
+                Inventario existingInventory = optionalInventory.get();
                 existingInventory.setQuantity(inventory.getQuantity());
                 existingInventory.setUnitPrice(inventory.getUnitPrice());
                 existingInventory.setClothing(inventory.getClothing());
@@ -85,9 +85,9 @@ public class InventoryController {
     @DeleteMapping("/{inventoryId}")
     public ResponseEntity<?> deleteInventory(@PathVariable Long inventoryId) {
         try {
-            Optional<Inventory> inventoryDelete = inventoryService.getInventoryById(inventoryId);
+            Optional<Inventario> inventoryDelete = inventoryService.getInventoryById(inventoryId);
             if (inventoryDelete.isPresent()) {
-                Inventory inventory = inventoryDelete.get();
+                Inventario inventory = inventoryDelete.get();
                 inventoryService.deleteInventoryById(inventory.getId());
 
                 return new ResponseEntity<>(inventoryDelete, HttpStatus.NO_CONTENT);
@@ -100,10 +100,10 @@ public class InventoryController {
     }
 
     @PostMapping("/buy")
-    public ResponseEntity<?> impactarCompra(@RequestBody @Valid PurchaseRequest purchaseRequest) {
+    public ResponseEntity<?> impactarCompra(@RequestBody @Valid CompraRequest purchaseRequest) {
 
         try {
-            Purchase effectedPurchase = purchaseService.impactarCompra(purchaseRequest);
+            Compra effectedPurchase = purchaseService.impactarCompra(purchaseRequest);
             return ResponseEntity.ok(effectedPurchase);
         } catch (ResourceNotFoundException | BadRequestException e) {
             throw e; // Reenvía las excepciones específicas

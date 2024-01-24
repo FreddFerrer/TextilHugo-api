@@ -2,8 +2,8 @@ package com.fredd.TextilHugo_web.controllers;
 
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
-import com.fredd.TextilHugo_web.model.entities.Clothing;
-import com.fredd.TextilHugo_web.services.IClothingService;
+import com.fredd.TextilHugo_web.model.entities.Indumentaria;
+import com.fredd.TextilHugo_web.services.IindumentariaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -17,14 +17,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/clothes")
 @RequiredArgsConstructor
-public class ClothingController {
+public class PrendaController {
 
-    private final IClothingService clothingService;
+    private final IindumentariaService clothingService;
 
 
     @GetMapping()
     public ResponseEntity<?> getAllClothings() {
-        List<Clothing> clothing = clothingService.getAllClothings();
+        List<Indumentaria> clothing = clothingService.getAllClothings();
         if (clothing == null || clothing.isEmpty()) {
             throw new ResourceNotFoundException("indumentarias");
         }
@@ -34,7 +34,7 @@ public class ClothingController {
     @GetMapping("/{clothingId}")
     public ResponseEntity<?> getClothingById(@PathVariable Long clothingId) {
 
-        Optional<Clothing> clothing = clothingService.getClothingById(clothingId);
+        Optional<Indumentaria> clothing = clothingService.getClothingById(clothingId);
 
         if (clothing.isEmpty()) {
             throw new ResourceNotFoundException("indumentaria", "id", clothingId);
@@ -45,8 +45,8 @@ public class ClothingController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> addClothing(@RequestBody @Valid Clothing clothing) {
-        Clothing newClothing;
+    public ResponseEntity<?> addClothing(@RequestBody @Valid Indumentaria clothing) {
+        Indumentaria newClothing;
         try {
             newClothing = clothingService.addClothing(clothing);
         } catch (DataAccessException exDt) {
@@ -56,13 +56,13 @@ public class ClothingController {
     }
 
     @PutMapping("{idClothing}")
-    public ResponseEntity<?> updateClothing(@RequestBody @Valid Clothing clothing, @PathVariable Long idClothing){
+    public ResponseEntity<?> updateClothing(@RequestBody @Valid Indumentaria clothing, @PathVariable Long idClothing){
 
         try {
-            Optional<Clothing> optionalClothing = clothingService.getClothingById(idClothing);
+            Optional<Indumentaria> optionalClothing = clothingService.getClothingById(idClothing);
 
             if (optionalClothing.isPresent()){
-                Clothing existingClothing = optionalClothing.get();
+                Indumentaria existingClothing = optionalClothing.get();
                 existingClothing.setType(clothing.getType());
                 existingClothing.setDescription(clothing.getDescription());
                 existingClothing.setBrand(clothing.getBrand());
@@ -88,9 +88,9 @@ public class ClothingController {
     @DeleteMapping("{idClothing}")
     public ResponseEntity<?> delete(@PathVariable Long idClothing) {
         try {
-            Optional<Clothing> clothingDelete = clothingService.getClothingById(idClothing);
+            Optional<Indumentaria> clothingDelete = clothingService.getClothingById(idClothing);
             if (clothingDelete.isPresent()){
-                Clothing clothingId = clothingDelete.get();
+                Indumentaria clothingId = clothingDelete.get();
                 clothingService.deleteClothingById(clothingId.getId());
 
                 return new ResponseEntity<>(clothingDelete, HttpStatus.NO_CONTENT);
