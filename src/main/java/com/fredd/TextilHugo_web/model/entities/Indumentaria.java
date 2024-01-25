@@ -19,34 +19,39 @@ public class Indumentaria {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotEmpty(message = "El tipo no debe estar vacio ni ser menor a 10 caracteres")
-    @Size(min = 1, max = 100, message = "La longitud del campo debe estar entre 10 y 100 caracteres")
+
+    @Column(name = "tipo")
     private String type;
 
-    @NotEmpty(message = "La descripcion no debe estar vacia")
-    @Size(min = 1, max = 100, message = "La longitud del campo debe estar entre 10 y 100 caracteres")
+
+    @Column(name = "descripcion")
     private String description;
 
-    @NotEmpty(message = "Campo 'marca' requerido")
+
+    @Column(name = "marca")
     private String brand;
 
-    @NotEmpty(message = "Campo 'genero' requerido")
+
+    @Column(name = "genero")
     private String gender;
 
-    @NotEmpty(message = "Campo 'color' requerido")
+
+    @Column(name = "color")
     private String color;
 
-    @NotEmpty(message = "Campo 'material' requerido")
+
+    @Column(name = "material")
     private String material;
 
-    @NotEmpty(message = "Campo 'categoria' requerido")
+
+    @Column(name = "categoria")
     private String category;
 
-    @NotEmpty(message = "Campo 'temporada' requerido")
+
+    @Column(name = "temporada")
     private String season;
 
     @ManyToOne
-    @NotNull
     @JoinColumn(name = "talle_id")
     private TalleIndumentaria clothingSize;
 }

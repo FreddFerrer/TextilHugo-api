@@ -18,18 +18,16 @@ import lombok.Setter;
 public class TalleIndumentaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id_talle", nullable = false)
     private Long id;
 
-    @NotEmpty(message = "El campo 'talle' es obligatorio")
+    @Column(name = "talle")
     private String sizeChar;
 
-    @NotNull
-    @Min(value = 1, message = "La medida debe ser mayor que 0")
+    @Column(name = "medida_largo")
     private Integer medidaLargo;
 
-    @NotNull
-    @Min(value = 1, message = "La medida debe ser mayor que 0")
+    @Column(name = "medida_ancho")
     private Integer medidaAncho;
 
 }

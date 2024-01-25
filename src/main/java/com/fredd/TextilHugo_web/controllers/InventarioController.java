@@ -2,7 +2,7 @@ package com.fredd.TextilHugo_web.controllers;
 
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
-import com.fredd.TextilHugo_web.model.dtos.CompraRequest;
+import com.fredd.TextilHugo_web.model.dtos.request.CompraRequestDto;
 import com.fredd.TextilHugo_web.model.entities.Inventario;
 import com.fredd.TextilHugo_web.model.entities.Compra;
 import com.fredd.TextilHugo_web.services.ICompraService;
@@ -100,7 +100,7 @@ public class InventarioController {
     }
 
     @PostMapping("/buy")
-    public ResponseEntity<?> impactarCompra(@RequestBody @Valid CompraRequest purchaseRequest) {
+    public ResponseEntity<?> impactarCompra(@RequestBody @Valid CompraRequestDto purchaseRequest) {
 
         try {
             Compra effectedPurchase = purchaseService.impactarCompra(purchaseRequest);

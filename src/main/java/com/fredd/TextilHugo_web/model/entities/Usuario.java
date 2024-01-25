@@ -24,27 +24,23 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "campo obligatorio")
-    @Column(nullable = false)
+    @Column(name = "username")
     private String username;
 
-    @NotEmpty(message = "campo obligatorio")
+    @Column(name = "contraseña")
     private String password;
 
-    @Email
-    @Column(nullable = false, unique = true)
-    @NotEmpty(message = "campo obligatorio")
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "rol")
     @Enumerated(EnumType.STRING)
     private RolEnum role;
 
-    @NotEmpty(message = "campo obligatorio")
-    @Column(nullable = false)
+    @Column(name = "nombre")
     private String nombre;
 
-    @NotEmpty(message = "campo obligatorio")
-    @Column(nullable = false)
+    @Column(name = "apellido")
     private String apellido;
 
     @Override

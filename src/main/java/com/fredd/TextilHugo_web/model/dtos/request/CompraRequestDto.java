@@ -1,15 +1,13 @@
-package com.fredd.TextilHugo_web.model.dtos;
+package com.fredd.TextilHugo_web.model.dtos.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-public class CompraRequest {
+@NoArgsConstructor
+public class CompraRequestDto {
     @NotNull
     private Long inventoryId;
 

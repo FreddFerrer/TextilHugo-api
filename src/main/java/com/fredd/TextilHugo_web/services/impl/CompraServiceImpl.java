@@ -2,7 +2,7 @@ package com.fredd.TextilHugo_web.services.impl;
 
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
-import com.fredd.TextilHugo_web.model.dtos.CompraRequest;
+import com.fredd.TextilHugo_web.model.dtos.request.CompraRequestDto;
 import com.fredd.TextilHugo_web.model.entities.Inventario;
 import com.fredd.TextilHugo_web.model.entities.Compra;
 import com.fredd.TextilHugo_web.model.repositories.ICompraRepository;
@@ -26,7 +26,7 @@ public class CompraServiceImpl implements ICompraService {
     }
 
     @Override
-    public Compra impactarCompra(CompraRequest purchaseRequest) {
+    public Compra impactarCompra(CompraRequestDto purchaseRequest) {
         Optional<Inventario> inventory = inventoryService.getInventoryById(purchaseRequest.getInventoryId());
         if (inventory.isEmpty()) {
             throw new ResourceNotFoundException("inventario", "id", purchaseRequest.getInventoryId());

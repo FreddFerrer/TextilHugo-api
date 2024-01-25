@@ -19,18 +19,21 @@ import java.util.Date;
 public class Compra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id_compra", nullable = false)
     private Long id;
 
     @NotNull
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")
+    @Column(name = "cantidad")
     private Integer quantity;
 
     @NotNull
     @Min(value = 1, message = "El precio unitario debe ser mayor a 0")
+    @Column(name = "precio_unitario")
     private Double unitPrice;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_compra")
     private Date purchaseDate;
 
     @ManyToOne
