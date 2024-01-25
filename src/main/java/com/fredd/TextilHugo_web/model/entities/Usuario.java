@@ -1,5 +1,6 @@
 package com.fredd.TextilHugo_web.model.entities;
 
+import com.fredd.TextilHugo_web.model.enums.RolEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -31,6 +32,7 @@ public class Usuario implements UserDetails {
     private String password;
 
     @Email
+    @Column(nullable = false, unique = true)
     @NotEmpty(message = "campo obligatorio")
     private String email;
 
