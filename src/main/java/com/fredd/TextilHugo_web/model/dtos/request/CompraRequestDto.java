@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+//Cuerpo de la peticion de compra
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
