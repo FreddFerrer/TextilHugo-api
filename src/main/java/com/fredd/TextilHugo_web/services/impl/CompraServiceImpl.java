@@ -27,22 +27,22 @@ public class CompraServiceImpl implements ICompraService {
 
     @Override
     public Compra impactarCompra(CompraRequestDto purchaseRequest) {
-        Optional<Inventario> inventory = inventoryService.getInventoryById(purchaseRequest.getInventoryId());
+        Optional<Inventario> inventory = inventoryService.getInventoryById(purchaseRequest.getInventarioId());
         if (inventory.isEmpty()) {
-            throw new ResourceNotFoundException("inventario", "id", purchaseRequest.getInventoryId());
+            throw new ResourceNotFoundException("inventario", "id", purchaseRequest.getInventarioId());
         }
 
         Inventario inventoryExist = inventory.get();
-        if (inventoryExist.getQuantity() < purchaseRequest.getQuantity()) {
+        if (inventoryExist.getCantidad() < purchaseRequest.getCantidad()) {
             throw new BadRequestException("Stock insuficiente para la prenda");
         }
 
         // Actualizar inventario
-        inventoryExist.setQuantity(inventoryExist.getQuantity() - purchaseRequest.getQuantity());
-        inventoryService.addInventory(inventoryExist);
+        inventoryExist.setCantidad(inventoryExist.getCantidad() - purchaseRequest.getCantidad());
+        inventoryService.updateInventory(inventoryExist);
 
         // Crear y guardar compra
-        Compra purchase = new Compra(purchaseRequest.getQuantity(), inventoryExist.getUnitPrice(), inventoryExist);
+        Compra purchase = new Compra(purchaseRequest.getCantidad(), inventoryExist.getPrecioUnitario(), inventoryExist);
         return addPurchase(purchase);
     }
 }

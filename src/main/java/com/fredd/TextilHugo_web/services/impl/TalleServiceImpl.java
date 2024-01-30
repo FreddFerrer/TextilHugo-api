@@ -1,6 +1,6 @@
 package com.fredd.TextilHugo_web.services.impl;
 
-import com.fredd.TextilHugo_web.model.entities.TalleIndumentaria;
+import com.fredd.TextilHugo_web.model.entities.Talle;
 import com.fredd.TextilHugo_web.model.repositories.ITalleRepository;
 import com.fredd.TextilHugo_web.services.ITalleService;
 import lombok.RequiredArgsConstructor;
@@ -15,17 +15,17 @@ public class TalleServiceImpl implements ITalleService {
     private final ITalleRepository sizeRepository;
 
     @Override
-    public TalleIndumentaria addSize(TalleIndumentaria clothingSize) {
+    public Talle addSize(Talle clothingSize) {
         return sizeRepository.save(clothingSize);
     }
 
     @Override
-    public List<TalleIndumentaria> getAllSizes() {
+    public List<Talle> getAllSizes() {
         return sizeRepository.findAll();
     }
 
     @Override
-    public Optional<TalleIndumentaria> getSizeById(Long sizeId) {
+    public Optional<Talle> getSizeById(Long sizeId) {
         return sizeRepository.findById(sizeId);
     }
 

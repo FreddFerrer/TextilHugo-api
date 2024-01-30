@@ -1,8 +1,6 @@
 package com.fredd.TextilHugo_web.model.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,19 +13,22 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TalleIndumentaria {
+public class Talle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_talle", nullable = false)
     private Long id;
 
-    @Column(name = "talle")
+    @NotNull
+    @Column(name = "talle", nullable = false)
     private String sizeChar;
 
-    @Column(name = "medida_largo")
+    @NotNull
+    @Column(name = "medida_largo", nullable = false)
     private Integer medidaLargo;
 
-    @Column(name = "medida_ancho")
+    @NotNull
+    @Column(name = "medida_ancho, nullable = false")
     private Integer medidaAncho;
 
 }

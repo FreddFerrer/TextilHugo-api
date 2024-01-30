@@ -20,23 +20,26 @@ public class Inventario {
     private Long id;
 
     @NotNull
+    @Column(name = "cantidad")
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")
-    private Integer quantity;
+    private Integer cantidad;
 
     @NotNull
+    @Column(name = "precio_unitario")
     @Min(value = 1, message = "El precio unitario debe ser mayor a 0")
-    private Double unitPrice;
+    private Double precioUnitario;
 
     @Temporal(TemporalType.DATE)
-    private Date loadDate;
+    @Column(name = "fecha_incorporacion")
+    private Date fechaIncorporacion;
 
     @ManyToOne
-    @JoinColumn(name = "indumentaria_id")
+    @JoinColumn(name = "producto_id")
     @NotNull
-    private Indumentaria clothing;
+    private Producto producto;
 
     @PrePersist
     public void prePersist() {
-        loadDate = new Date();
+        fechaIncorporacion = new Date();
     }
 }

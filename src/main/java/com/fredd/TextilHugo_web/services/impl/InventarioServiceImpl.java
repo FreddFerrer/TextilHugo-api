@@ -1,6 +1,8 @@
 package com.fredd.TextilHugo_web.services.impl;
 
+import com.fredd.TextilHugo_web.model.dtos.request.CreateInventarioDto;
 import com.fredd.TextilHugo_web.model.entities.Inventario;
+import com.fredd.TextilHugo_web.model.mappers.InventarioDTOMapper;
 import com.fredd.TextilHugo_web.model.repositories.IinventarioRepository;
 import com.fredd.TextilHugo_web.services.IinventarioService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class InventarioServiceImpl implements IinventarioService {
 
     private final IinventarioRepository inventoryRepository;
+    private final InventarioDTOMapper inventarioDTOMapper;
 
     @Override
     public List<Inventario> getAllInventory() {
@@ -26,12 +29,18 @@ public class InventarioServiceImpl implements IinventarioService {
     }
 
     @Override
-    public Inventario addInventory(Inventario newInventory) {
+    public Inventario addInventory(CreateInventarioDto newInventoryDto) {
+        Inventario newInventory = inventarioDTOMapper.toEntity(newInventoryDto);
         return inventoryRepository.save(newInventory);
     }
 
     @Override
     public void deleteInventoryById(Long inventoryId) {
         inventoryRepository.deleteById(inventoryId);
+    }
+
+    @Override
+    public void updateInventory(Inventario existingInventory) {
+        inventoryRepository.save(existingInventory);
     }
 }

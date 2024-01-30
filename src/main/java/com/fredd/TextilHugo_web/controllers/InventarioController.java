@@ -3,6 +3,7 @@ package com.fredd.TextilHugo_web.controllers;
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
 import com.fredd.TextilHugo_web.model.dtos.request.CompraRequestDto;
+import com.fredd.TextilHugo_web.model.dtos.request.CreateInventarioDto;
 import com.fredd.TextilHugo_web.model.entities.Inventario;
 import com.fredd.TextilHugo_web.model.entities.Compra;
 import com.fredd.TextilHugo_web.services.ICompraService;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/inventory")
+@RequestMapping("/api/v1/inventario")
 @RequiredArgsConstructor
 public class InventarioController {
 
@@ -48,7 +49,7 @@ public class InventarioController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> addInventory(@RequestBody @Valid Inventario inventory) {
+    public ResponseEntity<?> addInventory(@RequestBody @Valid CreateInventarioDto inventory) {
         Inventario newInventory;
         try {
             newInventory = inventoryService.addInventory(inventory);
@@ -66,11 +67,11 @@ public class InventarioController {
 
             if (optionalInventory.isPresent()) {
                 Inventario existingInventory = optionalInventory.get();
-                existingInventory.setQuantity(inventory.getQuantity());
-                existingInventory.setUnitPrice(inventory.getUnitPrice());
-                existingInventory.setClothing(inventory.getClothing());
+                existingInventory.setCantidad(inventory.getCantidad());
+                existingInventory.setPrecioUnitario(inventory.getPrecioUnitario());
+                existingInventory.setProducto(inventory.getProducto());
 
-                inventoryService.addInventory(existingInventory);
+                inventoryService.updateInventory(existingInventory);
 
                 ResponseEntity.ok(existingInventory);
 
@@ -100,10 +101,10 @@ public class InventarioController {
     }
 
     @PostMapping("/buy")
-    public ResponseEntity<?> impactarCompra(@RequestBody @Valid CompraRequestDto purchaseRequest) {
+    public ResponseEntity<?> impactarCompra(@RequestBody @Valid CompraRequestDto compraRequest) {
 
         try {
-            Compra effectedPurchase = purchaseService.impactarCompra(purchaseRequest);
+            Compra effectedPurchase = purchaseService.impactarCompra(compraRequest);
             return ResponseEntity.ok(effectedPurchase);
         } catch (ResourceNotFoundException | BadRequestException e) {
             throw e; // Reenvía las excepciones específicas

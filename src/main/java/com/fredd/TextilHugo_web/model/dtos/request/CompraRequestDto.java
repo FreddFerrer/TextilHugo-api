@@ -11,10 +11,10 @@ import lombok.*;
 @NoArgsConstructor
 public class CompraRequestDto {
     @NotNull
-    private Long inventoryId;
+    private Long inventarioId;
 
     @NotNull
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")
-    private Integer quantity;
+    private Integer cantidad;
 
 }

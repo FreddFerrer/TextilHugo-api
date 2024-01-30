@@ -25,30 +25,30 @@ public class Compra {
     @NotNull
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")
     @Column(name = "cantidad")
-    private Integer quantity;
+    private Integer cantidad;
 
     @NotNull
     @Min(value = 1, message = "El precio unitario debe ser mayor a 0")
     @Column(name = "precio_unitario")
-    private Double unitPrice;
+    private Double precioUnitario;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_compra")
-    private Date purchaseDate;
+    private Date fechaCompra;
 
     @ManyToOne
-    @JoinColumn(name = "inventario_id")
+    @JoinColumn(name = "producto_id")
     @NotNull
-    private Inventario inventory;
+    private Inventario inventario;
 
-    public Compra(Integer quantity, Double unitPrice, Inventario inventory) {
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
-        this.inventory = inventory;
+    public Compra(Integer cantidad, Double precioUnitario, Inventario inventario) {
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.inventario = inventario;
     }
 
     @PrePersist
     public void prePersist() {
-        purchaseDate = new Date();
+        fechaCompra = new Date();
     }
 }

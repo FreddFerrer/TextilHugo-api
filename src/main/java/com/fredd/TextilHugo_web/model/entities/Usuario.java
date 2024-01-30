@@ -4,6 +4,7 @@ import com.fredd.TextilHugo_web.model.enums.RolEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,12 +25,15 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "username")
     private String username;
 
+    @NotNull
     @Column(name = "contraseña")
     private String password;
 
+    @NotNull
     @Column(name = "email")
     private String email;
 
@@ -37,9 +41,11 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RolEnum role;
 
+    @NotNull
     @Column(name = "nombre")
     private String nombre;
 
+    @NotNull
     @Column(name = "apellido")
     private String apellido;
 

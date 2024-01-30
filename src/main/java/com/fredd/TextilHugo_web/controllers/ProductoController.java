@@ -2,11 +2,10 @@ package com.fredd.TextilHugo_web.controllers;
 
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
-import com.fredd.TextilHugo_web.model.dtos.IndumentariaDto;
-import com.fredd.TextilHugo_web.model.dtos.request.CreateIndumentariaDto;
-import com.fredd.TextilHugo_web.model.entities.Indumentaria;
-import com.fredd.TextilHugo_web.model.mappers.IndumentariaDTOMapper;
-import com.fredd.TextilHugo_web.services.IindumentariaService;
+import com.fredd.TextilHugo_web.model.dtos.ProductoDto;
+import com.fredd.TextilHugo_web.model.dtos.request.CreateProductoDto;
+import com.fredd.TextilHugo_web.model.mappers.ProductoDTOMapper;
+import com.fredd.TextilHugo_web.services.IProductoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -18,17 +17,17 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/clothes")
+@RequestMapping("/api/v1/productos")
 @RequiredArgsConstructor
-public class IndumentariaController {
+public class ProductoController {
 
-    private final IindumentariaService clothingService;
-    private final IndumentariaDTOMapper indumentariaDTOMapper;
+    private final IProductoService clothingService;
+    private final ProductoDTOMapper productoDTOMapper;
 
 
     @GetMapping()
     public ResponseEntity<?> getAllClothings() {
-        List<IndumentariaDto> clothing = clothingService.getAllClothings();
+        List<ProductoDto> clothing = clothingService.getAllClothings();
         if (clothing == null || clothing.isEmpty()) {
             throw new ResourceNotFoundException("indumentarias");
         }
@@ -38,7 +37,7 @@ public class IndumentariaController {
     @GetMapping("/{clothingId}")
     public ResponseEntity<?> getClothingById(@PathVariable Long clothingId) {
 
-        Optional<IndumentariaDto> clothing = clothingService.getClothingById(clothingId);
+        Optional<ProductoDto> clothing = clothingService.getClothingById(clothingId);
 
         if (clothing.isEmpty()) {
             throw new ResourceNotFoundException("indumentaria", "id", clothingId);
@@ -49,8 +48,8 @@ public class IndumentariaController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> saveIndumentaria(@RequestBody @Valid CreateIndumentariaDto clothing) {
-        IndumentariaDto newClothing;
+    public ResponseEntity<?> saveIndumentaria(@RequestBody @Valid CreateProductoDto clothing) {
+        ProductoDto newClothing;
         try {
             newClothing = clothingService.saveIndumentaria(clothing);
         } catch (DataAccessException exDt) {
@@ -60,10 +59,10 @@ public class IndumentariaController {
     }
 
     @PutMapping("{idClothing}")
-    public ResponseEntity<?> updateClothing(@RequestBody @Valid IndumentariaDto clothing, @PathVariable Long idClothing){
+    public ResponseEntity<?> updateClothing(@RequestBody @Valid ProductoDto clothing, @PathVariable Long idClothing){
 
         try {
-            IndumentariaDto updatedClothing = clothingService.updateIndumentaria(idClothing, clothing);
+            ProductoDto updatedClothing = clothingService.updateIndumentaria(idClothing, clothing);
             return ResponseEntity.ok(updatedClothing);
         } catch (DataAccessException e){
             throw new BadRequestException(e.getMessage());
@@ -73,9 +72,9 @@ public class IndumentariaController {
     @DeleteMapping("{idClothing}")
     public ResponseEntity<?> delete(@PathVariable Long idClothing) {
         try {
-            Optional<IndumentariaDto> clothingDelete = clothingService.getClothingById(idClothing);
+            Optional<ProductoDto> clothingDelete = clothingService.getClothingById(idClothing);
             if (clothingDelete.isPresent()){
-                IndumentariaDto clothingId = clothingDelete.get();
+                ProductoDto clothingId = clothingDelete.get();
                 clothingService.deleteClothingById(clothingId.getId());
 
                 return new ResponseEntity<>(clothingDelete, HttpStatus.NO_CONTENT);
