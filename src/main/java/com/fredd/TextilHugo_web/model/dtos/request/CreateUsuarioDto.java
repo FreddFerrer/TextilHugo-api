@@ -1,8 +1,5 @@
 package com.fredd.TextilHugo_web.model.dtos.request;
 
-import com.fredd.TextilHugo_web.model.enums.RolEnum;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

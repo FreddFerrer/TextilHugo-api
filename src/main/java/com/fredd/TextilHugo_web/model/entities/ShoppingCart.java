@@ -17,12 +17,12 @@ public class ShoppingCart {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    private Producto producto;
+    @Column(name = "usuario_id")
+    private Usuario usuario;
 
-    @ManyToOne(optional = false, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    private Usuario cliente;
+    @Column(name = "inventario_id")
+    private Inventario producto;
 
-    @NotNull
-    private int cantidad;
+    @Column(name = "cantidad")
+    private Integer cantidad;
 }

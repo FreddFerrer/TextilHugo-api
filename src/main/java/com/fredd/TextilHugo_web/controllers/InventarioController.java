@@ -35,13 +35,13 @@ public class InventarioController {
         return new ResponseEntity<>(inventories, HttpStatus.OK);
     }
 
-    @GetMapping("/{inventoryId}")
-    public ResponseEntity<?> getInventoryById(@PathVariable Long inventoryId) {
+    @GetMapping("/{inventarioId}")
+    public ResponseEntity<?> getInventoryById(@PathVariable Long inventarioId) {
 
-        Optional<Inventario> inventory = inventoryService.getInventoryById(inventoryId);
+        Optional<Inventario> inventory = inventoryService.getInventoryById(inventarioId);
 
         if (inventory.isEmpty()) {
-            throw new ResourceNotFoundException("inventario", "id", inventoryId);
+            throw new ResourceNotFoundException("inventario", "id", inventarioId);
         }
 
         return new ResponseEntity<>(inventory, HttpStatus.OK);
@@ -59,11 +59,11 @@ public class InventarioController {
         return new ResponseEntity<>(newInventory, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{inventoryId}")
-    public void updateInventory(@RequestBody @Valid Inventario inventory, @PathVariable Long inventoryId) {
+    @PutMapping("/{inventarioId}")
+    public void updateInventory(@RequestBody @Valid Inventario inventory, @PathVariable Long inventarioId) {
 
         try {
-            Optional<Inventario> optionalInventory = inventoryService.getInventoryById(inventoryId);
+            Optional<Inventario> optionalInventory = inventoryService.getInventoryById(inventarioId);
 
             if (optionalInventory.isPresent()) {
                 Inventario existingInventory = optionalInventory.get();
@@ -76,31 +76,31 @@ public class InventarioController {
                 ResponseEntity.ok(existingInventory);
 
             } else {
-                throw new ResourceNotFoundException("inventario", "id", inventoryId);
+                throw new ResourceNotFoundException("inventario", "id", inventarioId);
             }
         } catch (DataAccessException e) {
             throw new BadRequestException(e.getMessage());
         }
     }
 
-    @DeleteMapping("/{inventoryId}")
-    public ResponseEntity<?> deleteInventory(@PathVariable Long inventoryId) {
+    @DeleteMapping("/{inventarioId}")
+    public ResponseEntity<?> deleteInventory(@PathVariable Long inventarioId) {
         try {
-            Optional<Inventario> inventoryDelete = inventoryService.getInventoryById(inventoryId);
+            Optional<Inventario> inventoryDelete = inventoryService.getInventoryById(inventarioId);
             if (inventoryDelete.isPresent()) {
                 Inventario inventory = inventoryDelete.get();
                 inventoryService.deleteInventoryById(inventory.getId());
 
                 return new ResponseEntity<>(inventoryDelete, HttpStatus.NO_CONTENT);
             } else {
-                throw new ResourceNotFoundException("inventario", "id", inventoryId);
+                throw new ResourceNotFoundException("inventario", "id", inventarioId);
             }
         } catch (DataAccessException exDt) {
             throw new BadRequestException(exDt.getMessage());
         }
     }
 
-    @PostMapping("/buy")
+    @PostMapping("/compra")
     public ResponseEntity<?> impactarCompra(@RequestBody @Valid CompraRequestDto compraRequest) {
 
         try {

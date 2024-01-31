@@ -42,4 +42,8 @@ public class Inventario {
     public void prePersist() {
         fechaIncorporacion = new Date();
     }
+
+    public boolean hasSuficienteCantidad(Integer cantidad) {
+        return this.cantidad >= cantidad;
+    }
 }
