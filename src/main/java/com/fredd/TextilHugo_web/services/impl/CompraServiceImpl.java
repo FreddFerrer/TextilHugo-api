@@ -2,6 +2,7 @@ package com.fredd.TextilHugo_web.services.impl;
 
 import com.fredd.TextilHugo_web.exceptions.BadRequestException;
 import com.fredd.TextilHugo_web.exceptions.ResourceNotFoundException;
+import com.fredd.TextilHugo_web.model.dtos.InventarioDto;
 import com.fredd.TextilHugo_web.model.dtos.request.CompraRequestDto;
 import com.fredd.TextilHugo_web.model.entities.Inventario;
 import com.fredd.TextilHugo_web.model.entities.Compra;
@@ -27,7 +28,7 @@ public class CompraServiceImpl implements ICompraService {
 
     @Override
     public Compra impactarCompra(CompraRequestDto purchaseRequest) {
-        Optional<Inventario> inventory = inventoryService.getInventoryById(purchaseRequest.getInventarioId());
+        Optional<Inventario> inventory = inventoryService.getInventarioById(purchaseRequest.getInventarioId());
         if (inventory.isEmpty()) {
             throw new ResourceNotFoundException("inventario", "id", purchaseRequest.getInventarioId());
         }
@@ -39,7 +40,7 @@ public class CompraServiceImpl implements ICompraService {
 
         // Actualizar inventario
         inventoryExist.setCantidad(inventoryExist.getCantidad() - purchaseRequest.getCantidad());
-        inventoryService.updateInventory(inventoryExist);
+        inventoryService.saveInventory(inventoryExist);
 
         // Crear y guardar compra
         Compra purchase = new Compra(purchaseRequest.getCantidad(), inventoryExist.getPrecioUnitario(), inventoryExist);

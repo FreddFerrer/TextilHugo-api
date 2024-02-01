@@ -62,6 +62,12 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
     }
 
     @Override
+    public Optional<ShoppingCartDto> getShoppingCartItemById(Long itemId) {
+        Optional<ShoppingCart> shoppingCart = shoppingCartRepository.findById(itemId);
+        return shoppingCart.map(shoppingCartDTOMapper::toDto);
+    }
+
+    @Override
     public List<ShoppingCartDto> getProductsInCart(Usuario usuario) {
         List<ShoppingCart> carts = shoppingCartRepository.findByUsuario(usuario);
         List<ShoppingCartDto> dtos = new ArrayList<>();
@@ -72,5 +78,18 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 
         return dtos;
     }
+
+    @Override
+    public void removeProductById(Long id) {
+        Optional<ShoppingCartDto> itemCarritoDelete = getShoppingCartItemById(id);
+        if (itemCarritoDelete.isPresent()) {
+            ShoppingCartDto itemCarrito = itemCarritoDelete.get();
+            shoppingCartRepository.deleteById(itemCarrito.getId());
+
+        } else {
+            throw new ResourceNotFoundException("item", "id", id);
+        }
+    }
+
 
 }

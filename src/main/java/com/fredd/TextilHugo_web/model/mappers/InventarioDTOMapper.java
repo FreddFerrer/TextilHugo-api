@@ -15,6 +15,7 @@ import java.util.List;
 public interface InventarioDTOMapper {
 
     Inventario toEntity(CreateInventarioDto createInventarioDto);
+    Inventario toEntity(InventarioDto createInventarioDto);
 
     @Mappings({
             @Mapping(target = "fechaDeLaCarga", source = "fechaIncorporacion"),

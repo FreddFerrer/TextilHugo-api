@@ -79,4 +79,15 @@ public class ProductoServiceImpl implements IProductoService {
         clothingRepository.deleteById(clothingId);
     }
 
+    @Override
+    public void deleteProductoById(Long idProducto) {
+        Optional<ProductoDto> clothingDelete = getClothingById(idProducto);
+        if (clothingDelete.isPresent()) {
+            ProductoDto clothingId = clothingDelete.get();
+            clothingRepository.deleteById(clothingId.getId());
+        } else {
+            throw new ResourceNotFoundException("indumentaria", "id", idProducto);
+        }
+    }
+
 }

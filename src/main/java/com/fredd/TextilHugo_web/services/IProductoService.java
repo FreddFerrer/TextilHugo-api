@@ -16,4 +16,6 @@ public interface IProductoService {
 
     boolean existsById(Long id);
     void deleteClothingById(Long clothingId);
+
+    void deleteProductoById(Long idClothing);
 }

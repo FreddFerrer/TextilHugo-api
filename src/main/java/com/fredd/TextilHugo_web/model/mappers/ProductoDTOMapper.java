@@ -15,6 +15,7 @@ public interface ProductoDTOMapper {
     ProductoDto toDto(Producto producto);
 
     Producto toEntity(CreateProductoDto indumentariaDto);
+    Producto toEntity(ProductoDto indumentariaDto);
 
     List<ProductoDto> toDtoList(List<Producto> listaProductoDto);
 }

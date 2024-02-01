@@ -22,8 +22,6 @@ import java.util.Optional;
 public class ProductoController {
 
     private final IProductoService clothingService;
-    private final ProductoDTOMapper productoDTOMapper;
-
 
     @GetMapping()
     public ResponseEntity<?> getAllClothings() {
@@ -69,20 +67,15 @@ public class ProductoController {
         }
     }
 
-    @DeleteMapping("{idClothing}")
-    public ResponseEntity<?> delete(@PathVariable Long idClothing) {
+    @DeleteMapping("{idProducto}")
+    public ResponseEntity<?> delete(@PathVariable Long idProducto) {
         try {
-            Optional<ProductoDto> clothingDelete = clothingService.getClothingById(idClothing);
-            if (clothingDelete.isPresent()){
-                ProductoDto clothingId = clothingDelete.get();
-                clothingService.deleteClothingById(clothingId.getId());
-
-                return new ResponseEntity<>(clothingDelete, HttpStatus.NO_CONTENT);
-            } else {
-                throw new ResourceNotFoundException("indumentaria", "id", idClothing);
-            }
+            clothingService.deleteProductoById(idProducto);
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException ex) {
+            throw new ResourceNotFoundException("indumentaria", "id", idProducto);
         } catch (DataAccessException exDt) {
-            throw  new BadRequestException(exDt.getMessage());
+            throw new BadRequestException(exDt.getMessage());
         }
     }
 
