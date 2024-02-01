@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 public class ShoppingCartRequestDto {
-
     @NotNull
     private Inventario inventario;
 
     @NotNull
     private Integer cantidad;
+
 }

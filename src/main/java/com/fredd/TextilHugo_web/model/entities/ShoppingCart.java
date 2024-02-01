@@ -17,10 +17,12 @@ public class ShoppingCart {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "usuario_id")
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @Column(name = "inventario_id")
+    @ManyToOne
+    @JoinColumn(name = "inventario_id")
     private Inventario producto;
 
     @Column(name = "cantidad")

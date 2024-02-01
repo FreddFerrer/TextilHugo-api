@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShoppingCartDto {
+public class UsuarioDto {
     private Long id;
-    private InventarioDto producto;
-    private UsuarioDto usuario;
-    private Integer cantidad;
+    private String username;
+    private String nombre;
+    private String apellido;
+    private String email;
 }
