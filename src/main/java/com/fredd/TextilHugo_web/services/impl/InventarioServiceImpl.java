@@ -63,6 +63,7 @@ public class InventarioServiceImpl implements IinventarioService {
             Inventario existingInventory = inventarioDTOMapper.toEntity(optionalInventory.get());
             existingInventory.setCantidad(createInventoryDto.getCantidad());
             existingInventory.setPrecioUnitario(createInventoryDto.getPrecioUnitario());
+            //existingInventory.setFechaIncorporacion(optionalInventory.get().getFechaDeLaCarga());
 
             saveInventory(existingInventory);
         } else {

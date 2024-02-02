@@ -19,12 +19,10 @@ public class Inventario {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull
     @Column(name = "cantidad")
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")
     private Integer cantidad;
 
-    @NotNull
     @Column(name = "precio_unitario")
     @Min(value = 1, message = "El precio unitario debe ser mayor a 0")
     private Double precioUnitario;

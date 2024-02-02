@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class EditInventarioDto {
     @NotNull(message = "La cantidad no debe ser nula")
@@ -13,4 +15,5 @@ public class EditInventarioDto {
     @NotNull(message = "El precio unitario no debe ser nulo")
     @Min(value = 1, message = "El precio unitario debe ser mayor a 0")
     private Double precioUnitario;
+
 }
