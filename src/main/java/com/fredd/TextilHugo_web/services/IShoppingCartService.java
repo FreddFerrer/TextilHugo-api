@@ -15,6 +15,6 @@ public interface IShoppingCartService {
 
     ShoppingCartDto addProduct(ShoppingCartRequestDto shoppingCartRequestDto);
     Optional<ShoppingCartDto> getShoppingCartItemById(Long itemId);
-    List<ShoppingCartDto> getProductsInCart(Usuario usuario);
+    List<ShoppingCartDto> getProductsInCart();
     void removeProductById(Long id);
 }

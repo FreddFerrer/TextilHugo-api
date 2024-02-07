@@ -75,11 +75,6 @@ public class ProductoServiceImpl implements IProductoService {
     }
 
     @Override
-    public void deleteClothingById(Long clothingId) {
-        clothingRepository.deleteById(clothingId);
-    }
-
-    @Override
     public void deleteProductoById(Long idProducto) {
         Optional<ProductoDto> clothingDelete = getClothingById(idProducto);
         if (clothingDelete.isPresent()) {

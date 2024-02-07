@@ -15,7 +15,6 @@ public interface IProductoService {
     ProductoDto updateIndumentaria(Long id, ProductoDto updatedProductoDto);
 
     boolean existsById(Long id);
-    void deleteClothingById(Long clothingId);
 
     void deleteProductoById(Long idClothing);
 }

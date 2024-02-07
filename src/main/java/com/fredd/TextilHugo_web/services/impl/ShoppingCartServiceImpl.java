@@ -68,8 +68,9 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
     }
 
     @Override
-    public List<ShoppingCartDto> getProductsInCart(Usuario usuario) {
-        List<ShoppingCart> carts = shoppingCartRepository.findByUsuario(usuario);
+    public List<ShoppingCartDto> getProductsInCart() {
+        Usuario userDetails = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<ShoppingCart> carts = shoppingCartRepository.findByUsuario(userDetails);
         List<ShoppingCartDto> dtos = new ArrayList<>();
 
         for (ShoppingCart cart : carts) {
