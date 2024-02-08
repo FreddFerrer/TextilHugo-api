@@ -2,11 +2,11 @@ package com.fredd.TextilHugo_web.model.dtos.request;
 
 import com.fredd.TextilHugo_web.model.entities.Talle;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 @Data
 @AllArgsConstructor
@@ -36,7 +36,9 @@ public class CreateProductoDto {
     @NotEmpty(message = "Campo 'categoria' requerido")
     private String categoria;
 
+    @Nullable
     private String temporada;
 
+    @Nullable
     private Talle talle;
 }

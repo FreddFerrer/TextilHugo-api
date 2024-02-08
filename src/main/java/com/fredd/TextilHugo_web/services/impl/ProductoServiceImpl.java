@@ -27,7 +27,7 @@ public class ProductoServiceImpl implements IProductoService {
     }
 
     @Override
-    public Optional<ProductoDto> getClothingById(Long clothingId) {
+    public Optional<ProductoDto> getProductoById(Long clothingId) {
         Optional<Producto> indumentaria = clothingRepository.findById(clothingId);
         return indumentaria.map(productoDTOMapper::toDto);
     }
@@ -76,7 +76,7 @@ public class ProductoServiceImpl implements IProductoService {
 
     @Override
     public void deleteProductoById(Long idProducto) {
-        Optional<ProductoDto> clothingDelete = getClothingById(idProducto);
+        Optional<ProductoDto> clothingDelete = getProductoById(idProducto);
         if (clothingDelete.isPresent()) {
             ProductoDto clothingId = clothingDelete.get();
             clothingRepository.deleteById(clothingId.getId());

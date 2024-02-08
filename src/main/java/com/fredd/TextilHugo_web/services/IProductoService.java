@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface IProductoService {
 
     List<ProductoDto> getAllClothings();
-    Optional<ProductoDto> getClothingById(Long indumentariaId);
+    Optional<ProductoDto> getProductoById(Long indumentariaId);
     ProductoDto saveIndumentaria(CreateProductoDto createProductoDto);
 
     ProductoDto updateIndumentaria(Long id, ProductoDto updatedProductoDto);

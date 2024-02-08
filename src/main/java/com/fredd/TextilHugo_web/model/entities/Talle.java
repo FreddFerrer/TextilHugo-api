@@ -19,16 +19,13 @@ public class Talle {
     @Column(name = "id_talle", nullable = false)
     private Long id;
 
-    @NotNull
     @Column(name = "talle", nullable = false)
     private String sizeChar;
 
-    @NotNull
     @Column(name = "medida_largo", nullable = false)
     private Integer medidaLargo;
 
-    @NotNull
-    @Column(name = "medida_ancho, nullable = false")
+    @Column(name = "medida_ancho", nullable = false)
     private Integer medidaAncho;
 
 }
