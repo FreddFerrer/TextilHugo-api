@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
                     mapErrors.put(clave, valor);
                 }
         );
-        CustomErrorResponse apiResponse = new CustomErrorResponse(mapErrors, webRequest.getDescription(false));
+        CustomErrorResponse apiResponse = new CustomErrorResponse(webRequest.getDescription(false), mapErrors);
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
 

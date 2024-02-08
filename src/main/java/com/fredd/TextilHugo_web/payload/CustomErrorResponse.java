@@ -9,6 +9,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class CustomErrorResponse {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String estado;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> errors;
@@ -20,8 +21,8 @@ public class CustomErrorResponse {
         this.mensaje = mensaje;
     }
 
-    public CustomErrorResponse(Map<String, String> errors, String estado) {
-        this.estado = estado;
+    public CustomErrorResponse(String mensaje, Map<String, String> errors) {
+        this.mensaje = mensaje;
         this.errors = errors;
     }
 

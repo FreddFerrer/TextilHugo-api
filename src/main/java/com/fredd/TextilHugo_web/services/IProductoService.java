@@ -12,7 +12,7 @@ public interface IProductoService {
     Optional<ProductoDto> getProductoById(Long indumentariaId);
     ProductoDto saveIndumentaria(CreateProductoDto createProductoDto);
 
-    ProductoDto updateIndumentaria(Long id, ProductoDto updatedProductoDto);
+    ProductoDto updateIndumentaria(Long id, CreateProductoDto updatedProductoDto);
 
     boolean existsById(Long id);
 

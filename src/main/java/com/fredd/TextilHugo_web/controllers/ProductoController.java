@@ -8,6 +8,7 @@ import com.fredd.TextilHugo_web.payload.CustomErrorResponse;
 import com.fredd.TextilHugo_web.services.IProductoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -97,7 +98,19 @@ public class ProductoController {
             ),
             responses = {
                     @ApiResponse(responseCode = "201", description = "Producto creado", content = @Content(schema = @Schema(implementation = ProductoDto.class))),
-                    @ApiResponse(responseCode = "400", description = "Validación fallida"),
+                    @ApiResponse(responseCode = "400", description = "Validación fallida. " +
+                            "**IMPORTANTE:** Los campos 'temporada' y 'talle' <u>no son obligatorios</u>. Estes es un ejemplo " +
+                            "con el campo 'color' vacio.", content = @Content(
+                            schema = @Schema(implementation = BadRequestException.class),
+                            examples = @ExampleObject(value = """
+                                {
+                                    "errors": {
+                                        "color": "Campo 'color' requerido"
+                                    },
+                                "mensaje": "uri=/api/v1/productos"
+                                }
+                            """)
+                    )),
                     @ApiResponse(responseCode = "403", description = "Acceso denegado")
             }
     )
@@ -112,24 +125,73 @@ public class ProductoController {
         return new ResponseEntity<>(newClothing, HttpStatus.CREATED);
     }
 
-    @PutMapping("{idClothing}")
-    public ResponseEntity<?> updateClothing(@RequestBody @Valid ProductoDto clothing, @PathVariable Long idClothing){
+    @Operation(
+            tags = {"Productos"},
+            operationId = "editProduct",
+            summary = "Edita un producto",
+            description = "Edita un producto ya creado.",
+            security = {@SecurityRequirement(name = "Bearer Authentication")},
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = true,
+                    description = "Producto a ser creado. **IMPORTANTE:** Los campos 'temporada' y 'talle' <u>no son obligatorios</u>. " +
+                            "                    Si desea poner el talle solo" +
+                            "                    debe poner el id del mismo.",
+                    content = @Content(schema = @Schema(implementation = CreateProductoDto.class))
+
+            ),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Producto editado correctamente", content = @Content(schema = @Schema(implementation = ProductoDto.class))),
+                    @ApiResponse(responseCode = "400", description = "Validación fallida. " +
+                            "**IMPORTANTE:** Los campos 'temporada' y 'talle' <u>no son obligatorios</u>. Estes es un ejemplo " +
+                            "con el campo 'color' vacio.", content = @Content(
+                            schema = @Schema(implementation = BadRequestException.class),
+                            examples = @ExampleObject(value = """
+                                {
+                                    "errors": {
+                                        "color": "Campo 'color' requerido"
+                                    },
+                                "mensaje": "uri=/api/v1/productos"
+                                }
+                            """)
+                    )),
+                    @ApiResponse(responseCode = "403", description = "Acceso denegado")
+            }
+    )
+    @PutMapping("{productoId}")
+    public ResponseEntity<?> updateClothing(@RequestBody @Valid CreateProductoDto producto, @PathVariable Long productoId){
 
         try {
-            ProductoDto updatedClothing = productosService.updateIndumentaria(idClothing, clothing);
-            return ResponseEntity.ok(updatedClothing);
+            ProductoDto updatedProducto = productosService.updateIndumentaria(productoId, producto);
+            return ResponseEntity.ok(updatedProducto);
         } catch (DataAccessException e){
             throw new BadRequestException(e.getMessage());
         }
     }
 
-    @DeleteMapping("{idProducto}")
-    public ResponseEntity<?> delete(@PathVariable Long idProducto) {
+    @Operation(
+            tags = {"Productos"},
+            summary = "Eliminar un producto",
+            description = "Elimina un producto por su ID.",
+            security = {@SecurityRequirement(name = "Bearer Authentication")},
+            parameters = {
+                    @Parameter(name = "productoId", description = "ID del producto a eliminar", required = true, in = ParameterIn.PATH, schema = @Schema(implementation = Long.class))
+            },
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "Producto eliminado"),
+                    @ApiResponse(responseCode = "403", description = "Acceso denegado"),
+                    @ApiResponse(responseCode = "404", description = "Producto no encontrado", content = @Content(
+                            schema = @Schema(implementation = BadRequestException.class),
+                            examples = @ExampleObject(value = "{ \"estado\": \"producto no fue encontado con: id=''\", \"mensaje\": \"uri=/api/v1/productos/id\" }")
+                    )),
+            }
+    )
+    @DeleteMapping("{productoId}")
+    public ResponseEntity<?> delete(@PathVariable Long productoId) {
         try {
-            productosService.deleteProductoById(idProducto);
+            productosService.deleteProductoById(productoId);
             return ResponseEntity.noContent().build();
         } catch (ResourceNotFoundException ex) {
-            throw new ResourceNotFoundException("indumentaria", "id", idProducto);
+            throw new ResourceNotFoundException("indumentaria", "id", productoId);
         } catch (DataAccessException exDt) {
             throw new BadRequestException(exDt.getMessage());
         }

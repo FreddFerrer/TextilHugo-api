@@ -40,7 +40,7 @@ public class ProductoServiceImpl implements IProductoService {
     }
 
     @Override
-    public ProductoDto updateIndumentaria(Long id, ProductoDto updatedProductoDto) {
+    public ProductoDto updateIndumentaria(Long id, CreateProductoDto updatedProductoDto) {
         // Verificar si la indumentaria existe por el ID
         Optional<Producto> optionalIndumentaria = clothingRepository.findById(id);
 
